@@ -51,11 +51,12 @@ const fetchLeads = async () => {
       "https://future-fs-02-1-a5ob.onrender.com/api/leads"
     );
 
-    console.log("DATA:", res.data);
+    console.log("RES OBJECT:", res);
+    console.log("RES.DATA:", res.data);
 
-    setLeads(Array.isArray(res.data) ? res.data : []);
-  } catch (err) {
-    console.error("FETCH ERROR:", err);
+    setLeads(res.data);
+  } catch (error) {
+    console.error("ERROR:", error);
     setLeads([]);
   }
 };
@@ -68,12 +69,12 @@ const fetchLeads = async () => {
 
     if (editId) {
       await axios.put(
-        `http://localhost:5000/api/leads/${editId}`,
+        `https://future-fs-02-1-a5ob.onrender.com/api/leads/${editId}`,
         formData
       );
       setEditId(null);
     } else {
-      await axios.post("http://localhost:5000/api/leads", formData);
+      await axios.post("https://future-fs-02-1-a5ob.onrender.com/api/leads", formData);
     }
 
     setFormData({ name: "", email: "", phone: "", status: "New" });
@@ -82,10 +83,11 @@ const fetchLeads = async () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this lead?")) return;
-    await axios.delete(`http://localhost:5000/api/leads/${id}`);
-    fetchLeads();
-  };
-
+   await axios.delete(
+  `https://future-fs-02-1-a5ob.onrender.com/api/leads/${id}`)
+  fetchLeads();
+   };
+  
   const handleEdit = (lead) => {
     setFormData({
       name: lead.name,
