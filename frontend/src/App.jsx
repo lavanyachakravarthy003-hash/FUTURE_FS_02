@@ -47,13 +47,12 @@ function App() {
 
 const fetchLeads = async () => {
   try {
-    const res = await axios.get(
-      "https://future-fs-02-1-a5ob.onrender.com/api/leads"
-    );
-
-    setLeads(res.data);
-  } catch (error) {
-    console.error("Error fetching leads:", error);
+    const res = await axios.get("https://future-fs-02-1-a5ob.onrender.com/");
+    console.log("API RESPONSE:", res.data.leads);
+    setLeads(res.data.leads);
+  } catch (err) {
+    console.error("Fetch error:", err);
+    setLeads([]); // prevent crash
   }
 };
   const handleChange = (e) => {
@@ -93,12 +92,16 @@ const fetchLeads = async () => {
     setEditId(lead._id);
   };
 
-  const filteredLeads = leads.filter((lead) =>
-    lead.name.toLowerCase().includes(search.toLowerCase())
-  );
+const filteredLeads = Array.isArray(leads)
+  ? leads.filter((lead) =>
+      lead.name.toLowerCase().includes(search.toLowerCase())
+    )
+  : [];
 
-  const countStatus = (status) =>
-    leads.filter((lead) => lead.status === status).length;
+ const countStatus = (status) =>
+  Array.isArray(leads)
+    ? leads.filter((lead) => lead.status === status).length
+    : 0;
 
   // ✅ SHOW LOGIN PAGE FIRST
   if (!isLoggedIn) {
