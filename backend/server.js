@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use("/api/leads", leadRoutes);
 
-mongoose.connect("mongodb://127.0.0.1:27017/miniCRM")
+mongoose.connect(process.env.MONGO_URI)
 .then(()=>console.log("MongoDB Connected ✅"))
 .catch(err=>console.log(err));
 
