@@ -47,12 +47,16 @@ function App() {
 
 const fetchLeads = async () => {
   try {
-    const res = await axios.get("https://future-fs-02-1-a5ob.onrender.com/");
-    console.log("API RESPONSE:", res.data.leads);
-    setLeads(res.data.leads);
+    const res = await axios.get(
+      "https://future-fs-02-1-a5ob.onrender.com/api/leads"
+    );
+
+    console.log("DATA:", res.data);
+
+    setLeads(Array.isArray(res.data) ? res.data : []);
   } catch (err) {
-    console.error("Fetch error:", err);
-    setLeads([]); // prevent crash
+    console.error("FETCH ERROR:", err);
+    setLeads([]);
   }
 };
   const handleChange = (e) => {
