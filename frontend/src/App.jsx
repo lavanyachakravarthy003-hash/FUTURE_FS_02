@@ -45,11 +45,17 @@ function App() {
     setIsLoggedIn(false);
   };
 
-  const fetchLeads = async () => {
-    const res = await axios.get("https://future-fs-02-1-a5ob.onrender.com/");
-    setLeads(res.data);
-  };
+const fetchLeads = async () => {
+  try {
+    const res = await axios.get(
+      "https://future-fs-02-1-a5ob.onrender.com/api/leads"
+    );
 
+    setLeads(res.data);
+  } catch (error) {
+    console.error("Error fetching leads:", error);
+  }
+};
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
