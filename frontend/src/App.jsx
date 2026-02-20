@@ -46,7 +46,7 @@ function App() {
   };
 
   const fetchLeads = async () => {
-    const res = await axios.get("http://localhost:5000/api/leads");
+    const res = await axios.get("https://future-fs-02-1-a5ob.onrender.com/");
     setLeads(res.data);
   };
 
